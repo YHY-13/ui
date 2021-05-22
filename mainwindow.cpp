@@ -116,7 +116,7 @@ void MainWindow::on_pushButton_clicked()
    QString querymod_str=QString("select 小麦 from %1").arg(SqlName);
    queryModel->setQuery(querymod_str);
    ui->comboBox_temp->setModel(queryModel);
-
+    ui->stackedWidget->setCurrentIndex(1);//切换页面
 }
 //二级下拉菜单
 void MainWindow::on_comboBox_Variety_currentIndexChanged(int index)
@@ -247,4 +247,13 @@ void MainWindow::on_comboBox_water_currentIndexChanged(const QString &arg1)
         QString str=query.value(0).toString();
         ui->lineEdit->setText(str);
     }
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+
+    QSqlQueryModel*queryModel=new QSqlQueryModel(this);
+    QString querymod_str=QString("select * from 自定义数据库");
+    queryModel->setQuery(querymod_str);
+    ui->tableWidge->setModel(queryModel);
 }
