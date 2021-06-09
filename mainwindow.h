@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtCharts>
 #include<QString>
+QT_CHARTS_USE_NAMESPACE
 namespace Ui {
 class MainWindow;
 }
@@ -28,6 +30,18 @@ private slots:
     void on_comboBox_water_currentIndexChanged(const QString &arg1);
 
     void on_pushButton_3_clicked();
+
+    void on_viewButton_clicked();
+
+    void on_pushButton_page1_clicked();
+
+    void on_pushButton_page2_clicked();
+
+    void on_pushButton_page3_clicked();
+
+    void on_pushButton_page4_clicked();
+
+    void on_comboBox_activated(int index);
 
 private:
     Ui::MainWindow *ui;

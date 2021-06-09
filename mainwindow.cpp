@@ -7,6 +7,8 @@
 #include <QSqlQuery>
 #include<QDebug>
 #include<QButtonGroup>
+#include<QtDataVisualization>
+using namespace  QtDataVisualization;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -116,7 +118,7 @@ void MainWindow::on_pushButton_clicked()
    QString querymod_str=QString("select 小麦 from %1").arg(SqlName);
    queryModel->setQuery(querymod_str);
    ui->comboBox_temp->setModel(queryModel);
-    ui->stackedWidget->setCurrentIndex(1);//切换页面
+   // ui->stackedWidget->setCurrentIndex(1);//切换页面
 }
 //二级下拉菜单
 void MainWindow::on_comboBox_Variety_currentIndexChanged(int index)
@@ -256,4 +258,73 @@ void MainWindow::on_pushButton_3_clicked()
     QString querymod_str=QString("select * from 自定义数据库");
     queryModel->setQuery(querymod_str);
     ui->tableWidge->setModel(queryModel);
+}
+
+void MainWindow::on_viewButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+
+}
+
+void MainWindow::on_pushButton_page1_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_page2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_pushButton_page3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_page4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_comboBox_activated(int index)
+{
+    QChart* chart = new QChart();
+    QLineSeries *series = new QLineSeries();
+
+    QList<QPointF> listPoint;
+
+
+
+
+    QList<float> a,b;
+    QSqlQuery query;
+    QSqlQuery query1;
+
+    QString str=QString("select %1 from wheat_time_43_4_0 ").arg(list.at(index));
+
+    QString str1="select 小麦 from wheat_time_43_4_0";
+    query1.exec(str1);
+    query.exec(str);
+   while (query.next()) {
+    a<<query.value(0).toFloat();
+   }
+   while(query1.next()){
+  b<< query1.value(0).toFloat();
+   }
+    qDebug()<<a<<endl;//小数转化丢失
+    qDebug()<<b<<endl;
+   for(int i=1;i<a.size();i++){
+       listPoint<<QPointF(b.at(i),a.at(i));
+   }
+           series->append(listPoint);
+
+
+       chart->addSeries(series);
+
+       chart->createDefaultAxes();
+       ui->widget->setChart(chart);//显示某水分下一系列湿度的干燥时间折线图
+
 }
