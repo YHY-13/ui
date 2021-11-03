@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql charts datavisualization
+QT       += core gui sql printsupport #charts datavisualization
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,9 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
-
-HEADERS  += mainwindow.h
+        mainwindow.cpp\
+    qcustomplot.cpp \
+    calculate.cpp
+HEADERS  += mainwindow.h \
+    qcustomplot.h \
+    calculate.h
 
 FORMS    += mainwindow.ui
 CONFIG +=c++11
